@@ -1,372 +1,59 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>WePlanYourTravel AI - Every Tourist Spot Live</title>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&display=swap" rel="stylesheet">
-<style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Plus Jakarta Sans',sans-serif}
-body{background:#0a0a0b;color:white}
-.nav{padding:14px 5%;display:flex;justify-content:space-between;position:sticky;top:0;background:rgba(10,10,11,.95);backdrop-filter:blur(20px);z-index:20}
-.logo{font-weight:800;font-size:20px}.logo span{color:#a5b4fc}
-.hero{padding:20px 5% 10px;text-align:center}
-.hero h1{font-size:38px;font-weight:800}.hero h1 span{color:#a5b4fc}
-.tabs{max-width:700px;margin:18px auto;display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.tab{padding:14px;border-radius:14px;border:2px solid #27272a;background:#18181b;color:white;font-weight:800;cursor:pointer}
-.tab.active{background:#6366f1;border-color:#6366f1}
-.search-wrap{max-width:1200px;margin:16px auto;background:white;border-radius:22px;padding:16px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;position:relative}
-.field label{display:block;font-size:10px;font-weight:800;color:#6366f1;text-transform:uppercase;margin-bottom:5px}
-.field input,.field select{width:100%;padding:11px;border:1.5px solid #eef2f7;border-radius:10px;background:#f8fafc;color:#0f172a;font-weight:700;font-size:13px}
-.field{position:relative}
-.btn{grid-column:span 3;padding:14px;background:#6366f1;color:white;border:none;border-radius:12px;font-weight:800;cursor:pointer}
-.autocomplete-list{position:absolute;top:100%;left:0;right:0;background:white;border:1px solid #e2e8f0;border-radius:12px;max-height:380px;overflow-y:auto;z-index:100;display:none;box-shadow:0 10px 30px rgba(0,0,0,.15);margin-top:6px}
-.autocomplete-item{padding:11px 12px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #f1f5f9}
-.autocomplete-item:hover{background:#eef2ff}
-.features{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:14px;max-width:1300px;margin:14px auto;padding:0 4%}
-.fcard{border-radius:18px;overflow:hidden;height:300px;position:relative;background:#111;cursor:pointer}
-.fcard img{width:100%;height:100%;object-fit:cover}
-.fcard-info{position:absolute;bottom:0;left:0;right:0;padding:12px;background:linear-gradient(transparent,rgba(0,0,0,.92))}
-.fcard-info h3{font-size:13px}.fcard-info p{font-size:11px;opacity:.8;margin-top:3px}
-.fcard-info .plan-btn{margin-top:7px;padding:5px 10px;background:white;color:#0f172a;border-radius:20px;font-size:10px;font-weight:800;display:inline-block}
-#output{display:none;max-width:1150px;margin:20px auto;background:#f5f6f8;color:#0f172a;border-radius:24px;padding:18px}
-.sub-header{background:white;border-radius:20px;padding:18px;margin-bottom:16px;border:1px solid #eef2f7}
-.sub-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-top:14px}
-.sub-card{border-radius:16px;overflow:hidden;background:white;border:1px solid #eef2f7;cursor:pointer}
-.sub-card img{width:100%;height:150px;object-fit:cover}
-.sub-card-body{padding:12px}
-.plan-form{background:#f8fafc;border-radius:14px;padding:12px;display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px;margin-top:14px;align-items:end}
-.plan-form label{font-size:10px;font-weight:800;color:#6366f1;text-transform:uppercase}
-.plan-form input,.plan-form select{padding:10px;border-radius:10px;border:1.5px solid #e2e8f0;background:white;font-weight:700;width:100%}
-.day{background:white;border-radius:20px;padding:16px;margin-top:16px;border:1px solid #eef2f7}
-.timeline{display:flex;gap:8px;overflow-x:auto;margin-top:12px;padding-bottom:8px}
-.step{min-width:270px;flex:1;border-radius:14px;overflow:hidden;background:#f8fafc;border:1px solid #f1f5f9;position:relative}
-.step img{width:100%;height:150px;object-fit:cover;display:block;background:#eee}
-.step-content{padding:10px}
-.time{position:absolute;top:8px;left:8px;background:#6366f1;color:white;padding:4px 8px;border-radius:20px;font-size:10px;font-weight:800}
-.arrow{display:flex;align-items:center;justify-content:center;min-width:24px;font-size:20px;color:#6366f1;font-weight:800}
-.near{display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-top:6px}
-.near a{font-size:9px;padding:6px;border-radius:6px;text-align:center;text-decoration:none;font-weight:700;background:#0f172a;color:white}
-.badge{font-size:10px;padding:4px 8px;border-radius:20px;background:#e0e7ff;color:#4338ca;font-weight:700}
-@media(max-width:1100px){.features{grid-template-columns:1fr 1fr 1fr}.sub-grid{grid-template-columns:1fr 1fr}.plan-form{grid-template-columns:1fr 1fr}}@media(max-width:700px){.search-wrap{grid-template-columns:1fr 1fr}.btn{grid-column:span 2}.features{grid-template-columns:1fr 1fr}.sub-grid{grid-template-columns:1fr}.plan-form{grid-template-columns:1fr}}
-</style>
-</head>
-<body>
-<div class="nav"><div class="logo">✈️ WePlan<span>YourTravel</span> AI</div><div style="font-size:10px;opacity:.6">Live Search • Every Spot on Earth</div></div>
-<div class="hero"><h1>Start Planning <span>Free →</span></h1>
-<div class="tabs">
-<button id="tabAuto" class="tab active" onclick="switchTab('auto')">🤖 AutoPlan</button>
-<button id="tabExplore" class="tab" onclick="switchTab('explore')">📋 Explore Places</button>
-</div>
-<div id="autoBox" class="search-wrap">
-<div class="field"><label>👥 Who?</label><select id="persona"><option value="friends">Friends 👯</option><option value="students">Students 🎒</option><option value="couple">Couple ❤️</option><option value="family">Family</option><option value="solo">Solo</option></select></div>
-<div class="field"><label>❤️ Interest</label><select id="interest"><option value="all">All</option><option value="beach">Beach 🏖️</option><option value="mountains">Mountains ❄️</option><option value="heritage">Heritage 🏰</option><option value="nature">Nature 🌿</option></select></div>
-<div class="field"><label>📍 Where?</label><input id="place" placeholder="Search any place on Earth..." autocomplete="off" oninput="showSuggestLive(this.value)" onfocus="showSuggestLive(this.value)"><div id="suggestBox" class="autocomplete-list"></div></div>
-<div class="field"><label>📅 Days</label><input id="days" type="number" value="3"></div>
-<div class="field"><label>👥 Travellers</label><input id="trav" type="number" value="2"></div>
-<div class="field"><label>💰 Budget/Person</label><input id="budget" type="number" value="7000"></div>
-<button class="btn" onclick="genAuto()">✨ Generate Travel Plan →</button>
-</div>
-</div>
-
-<div id="exploreBox" style="display:none">
-<h2 style="text-align:center;margin:20px">🌍 Explore Places — 21 States & Countries Worldwide</h2>
-<div class="features" id="exploreGrid"></div>
-</div>
-
-<div id="output"></div>
-
-<script>
-function switchTab(t){
-document.getElementById('tabAuto').classList.toggle('active',t==='auto');
-document.getElementById('tabExplore').classList.toggle('active',t==='explore');
-document.getElementById('autoBox').style.display=t==='auto'?'grid':'none';
-document.getElementById('exploreBox').style.display=t==='explore'?'block':'none';
-}
-
-// FALLBACK LOCAL LIST (if internet slow)
-const LOCAL_PLACES=[
-"Maldives","Malaysia Kuala Lumpur","Malaysia Langkawi","Malshej Ghat Maharashtra","Matheran Maharashtra","Malvan Tarkarli","Malpe Beach","Munnar","Manali","Mysore","Mount Abu","Mumbai","Mahabalipuram","Mahabaleshwar","Nepal Kathmandu","Nepal Pokhara","Netherlands Amsterdam","New Zealand Queenstown","Norway Oslo","Narasapur","Nainital","New York","New Delhi","Nusa Penida","Nandi Hills","Nashik","North Goa","Norway Fjords",
-"Udaipur","Udaipur Lake Pichola","Udaipur City Palace","Jaipur","Jaisalmer","Jodhpur","Jaipur Hawa Mahal","Kochi","Kovalam","Kakinada","Kodaikanal","Kashmir Gulmarg","Kerala Munnar","Karnataka Coorg","Rajahmundry","Rajasthan Jaipur","Rajasthan Udaipur","Goa Baga","Gokarna","Gandikota","Dubai Burj Khalifa","Dubai Desert Safari","Bali Uluwatu","Bali Ubud","Bali Tanah Lot","Paris Eiffel Tower","Paris Louvre","London Big Ben","Tokyo Shibuya","New York Times Square","Thailand Phuket","Thailand Bangkok","Switzerland Jungfrau","Singapore Marina Bay","Sydney Opera House","Egypt Pyramids","Rome Colosseum","Iceland Blue Lagoon","Istanbul Hagia Sophia"
-];
-
 let liveTimeout=null;
-// LIVE WORLD SEARCH USING OPENSTREETMAP (Every tourist spot on Earth!)
 async function showSuggestLive(val){
   let box=document.getElementById('suggestBox');
-  if(!val || val.trim().length<2){ box.style.display='none'; return; }
+  if(!val || val.trim().length<1){ box.style.display='none'; return; }
   let q=val.trim();
+  let qlow=q.toLowerCase();
+  
+  // For 1-2 letters like "th" - use LOCAL list only (not live API - live API gives garbage "Th" for 2 letters)
+  if(q.length < 3){
+    let local=LOCAL_PLACES.filter(p=>p.toLowerCase().startsWith(qlow)).sort((a,b)=>a.localeCompare(b)).slice(0,15);
+    if(local.length===0) local=LOCAL_PLACES.filter(p=>p.toLowerCase().includes(qlow)).slice(0,15);
+    box.innerHTML=local.map(r=>{
+      let highlighted=r.replace(new RegExp(`(${q})`,'i'), '<b style="color:#6366f1">$1</b>');
+      let parts=r.split(' ');
+      let country=parts[parts.length-1]||"World";
+      return `<div class="autocomplete-item" onclick="selectPlace('${r.replace(/'/g,"\\'")}')"><span style="color:#0f172a;font-size:13px;font-weight:700">${highlighted}</span><small style="background:#eef2ff;padding:3px 8px;border-radius:10px;font-size:10px">${country}</small></div>`;
+    }).join('');
+    box.style.display='block';
+    return;
+  }
+
+  // For 3+ letters like "tha", "mal" - use LIVE worldwide search
   box.innerHTML=`<div style="padding:12px;color:#64748b;font-size:12px">🔍 Searching live worldwide for "${q}"...</div>`;
   box.style.display='block';
-  
   clearTimeout(liveTimeout);
   liveTimeout=setTimeout(async()=>{
     try{
-      // Photon API - OpenStreetMap worldwide, no key needed, gives villages, beaches, temples, everything!
       let url=`https://photon.komoot.io/api/?q=${encodeURIComponent(q)}&limit=15&lang=en`;
       let res=await fetch(url);
       let data=await res.json();
       if(!data.features || data.features.length===0) throw new Error("no live");
-      
       let results=data.features.map(f=>{
         let p=f.properties;
-        let name=p.name||p.street||"";
-        let city=p.city||p.county||"";
-        let state=p.state||"";
+        let name=p.name||"";
+        let city=p.city||p.county||p.state||"";
         let country=p.country||"";
-        let full=name + (city && city!==name ? `, ${city}` : "") + (country ? `, ${country}` : "");
-        let type=p.osm_type||"";
-        return {full: full.trim(), name: name, country: country, state: state, city: city};
-      }).filter(r=>r.name && r.name.length>=2);
-      
-      // Deduplicate
-      let seen=new Set();
-      let unique=[];
-      for(let r of results){
-        let key=r.full.toLowerCase();
-        if(!seen.has(key) && r.full.length>2){ seen.add(key); unique.push(r); }
-        if(unique.length>=15) break;
-      }
-      
+        if(!name || name.length < 3) return null;
+        let full=name + (city && city.toLowerCase()!==name.toLowerCase() ? `, ${city}` : "") + (country ? `, ${country}` : "");
+        return {full: full.trim(), name: name, country: country, city: city};
+      }).filter(r=>r && r.name && r.name.length>=3 && r.full.length>=4);
+      let seen=new Set(); let unique=[];
+      for(let r of results){ let key=r.full.toLowerCase(); if(!seen.has(key)){ seen.add(key); unique.push(r); } if(unique.length>=15) break; }
       if(unique.length===0) throw new Error("empty");
-      
       box.innerHTML=unique.map(r=>{
         let highlighted=r.full.replace(new RegExp(`(${q})`,'i'), '<b style="color:#6366f1">$1</b>');
-        return `<div class="autocomplete-item" onclick="selectPlace('${r.full.replace(/'/g,"\\'")}')"><span><b>${highlighted}</b></span><small>${r.country||r.state||"World"}</small></div>`;
-      }).join('') + `<div style="padding:8px;text-align:center;font-size:10px;color:#94a3b8">Live from OpenStreetMap • Every village, beach, temple worldwide</div>`;
+        return `<div class="autocomplete-item" onclick="selectPlace('${r.full.replace(/'/g,"\\'")}')"><span style="color:#0f172a;font-size:13px;font-weight:700">${highlighted}</span><small style="background:#eef2ff;padding:3px 8px;border-radius:10px;font-size:10px">${r.country||r.city||"World"}</small></div>`;
+      }).join('') + `<div style="padding:8px;text-align:center;font-size:10px;color:#94a3b8">Live from OpenStreetMap • Every village worldwide</div>`;
       box.style.display='block';
     }catch(e){
-      // Fallback to local if API fails
-      let qlow=q.toLowerCase();
-      let local=LOCAL_PLACES.filter(p=>p.toLowerCase().startsWith(qlow)).slice(0,12);
-      if(local.length===0) local=LOCAL_PLACES.filter(p=>p.toLowerCase().includes(qlow)).slice(0,12);
+      let local=LOCAL_PLACES.filter(p=>p.toLowerCase().startsWith(qlow)).slice(0,15);
+      if(local.length===0) local=LOCAL_PLACES.filter(p=>p.toLowerCase().includes(qlow)).slice(0,15);
       box.innerHTML=local.map(r=>{
         let highlighted=r.replace(new RegExp(`(${q})`,'i'), '<b style="color:#6366f1">$1</b>');
-        return `<div class="autocomplete-item" onclick="selectPlace('${r.replace(/'/g,"\\'")}')"><span><b>${highlighted}</b></span><small>Local</small></div>`;
-      }).join('') + `<div style="padding:8px;text-align:center;font-size:10px;color:#94a3b8">Offline mode • Type any place, it will still create plan!</div>`;
+        return `<div class="autocomplete-item" onclick="selectPlace('${r.replace(/'/g,"\\'")}')"><span style="color:#0f172a;font-size:13px;font-weight:700">${highlighted}</span><small style="background:#eef2ff;padding:3px 8px;border-radius:10px;font-size:10px">India</small></div>`;
+      }).join('');
       box.style.display='block';
     }
-  }, 300);
+  }, 400);
 }
-
-function selectPlace(name){
-  document.getElementById('place').value=name;
-  document.getElementById('suggestBox').style.display='none';
-}
-document.addEventListener('click',function(e){
-  if(!e.target.closest('.field')){ 
-    let box=document.getElementById('suggestBox');
-    if(box) box.style.display='none'; 
-  }
-});
-
-const SUB_PLACES={
-"kerala":[
-{n:"Munnar",d:"Tea Gardens, Eravikulam, Top Station",i:"https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?w=500",k:"munnar"},
-{n:"Alleppey",d:"Backwaters Houseboat, Marari Beach",i:"https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=500",k:"alleppey"},
-{n:"Wayanad",d:"Edakkal Caves, Banasura Dam",i:"https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=500",k:"wayanad"},
-{n:"Kochi",d:"Fort Kochi, Chinese Nets",i:"https://images.unsplash.com/photo-1593696140826-c58b021acf8b?w=500",k:"kochi"},
-{n:"Thekkady",d:"Periyar Wildlife",i:"https://images.unsplash.com/photo-1527668752968-14dc70a27cbb?w=500",k:"thekkady"},
-{n:"Varkala",d:"Cliff Beach",i:"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=500",k:"varkala"},
-{n:"Kovalam",d:"Lighthouse Beach",i:"https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?w=500",k:"kovalam"},
-{n:"Athirappilly Falls",d:"Bahubali Falls",i:"https://images.unsplash.com/photo-1490735891913-40897cdaafd1?w=500",k:"athirappilly"}
-],
-"rajasthan":[
-{n:"Jaipur",d:"Hawa Mahal, Amber Fort, City Palace",i:"https://images.unsplash.com/photo-1477587458883-47145ed94245?w=500",k:"jaipur"},
-{n:"Udaipur",d:"Lake Pichola, City Palace, Jag Mandir",i:"https://images.unsplash.com/photo-1599661046289-e31897846e41?w=500",k:"udaipur"},
-{n:"Jaisalmer",d:"Golden Fort, Sam Dunes, Camel Safari",i:"https://images.unsplash.com/photo-1477587458883-47145ed94245?w=500",k:"jaisalmer"},
-{n:"Jodhpur",d:"Mehrangarh Fort, Blue City",i:"https://images.unsplash.com/photo-1477587458883-47145ed94245?w=500",k:"jodhpur"},
-{n:"Pushkar",d:"Brahma Temple, Pushkar Lake",i:"https://images.unsplash.com/photo-1477587458883-47145ed94245?w=500",k:"pushkar"},
-{n:"Mount Abu",d:"Hill Station, Dilwara Temples",i:"https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=500",k:"mountabu"}
-],
-"maharashtra":[
-{n:"Malshej Ghat",d:"Waterfalls, Fog, Trekking Monsoon",i:"https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=500",k:"malshej ghat"},
-{n:"Matheran",d:"Toy Train, Hill Station, No Vehicles",i:"https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=500",k:"matheran"},
-{n:"Mahabaleshwar",d:"Strawberry Farms, Venna Lake",i:"https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=500",k:"mahabaleshwar"},
-{n:"Lonavala Khandala",d:"Tiger Point, Bhushi Dam, Rajmachi Fort",i:"https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=500",k:"lonavala"}
-],
-"malaysia":[
-{n:"Kuala Lumpur",d:"Petronas Towers, Batu Caves",i:"https://images.unsplash.com/photo-1596422846543-75c6fc197f07?w=500",k:"malaysia kl"},
-{n:"Langkawi",d:"Sky Bridge, Beaches, Cable Car",i:"https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?w=500",k:"malaysia langkawi"},
-{n:"Penang",d:"George Town, Street Art, Food",i:"https://images.unsplash.com/photo-1596422846543-75c6fc197f07?w=500",k:"malaysia penang"},
-{n:"Genting Highlands",d:"Theme Park, Casino, Hill Station",i:"https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=500",k:"malaysia genting"}
-],
-"nepal":[
-{n:"Kathmandu",d:"Pashupatinath, Durbar Square",i:"https://images.unsplash.com/photo-1527668752968-14dc70a27cbb?w=500",k:"nepal kathmandu"},
-{n:"Pokhara",d:"Phewa Lake, Sarangkot Sunrise",i:"https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=500",k:"nepal pokhara"},
-{n:"Everest Base Camp",d:"Everest Trek, Sherpa Culture",i:"https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=500",k:"nepal everest"}
-]
-};
-
-const MAIN_CARDS=[
-{key:"kerala",title:"🇮🇳 Kerala — 8 Places",desc:"Munnar, Alleppey, Wayanad...",img:"https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?w=500"},
-{key:"rajasthan",title:"🇮🇳 Rajasthan — 6 Places",desc:"Jaipur, Udaipur, Jaisalmer...",img:"https://images.unsplash.com/photo-1477587458883-47145ed94245?w=500"},
-{key:"maharashtra",title:"🇮🇳 Maharashtra — 4 Places",desc:"Malshej Ghat, Matheran, Mahabaleshwar...",img:"https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=500"},
-{key:"malaysia",title:"🇲🇾 Malaysia — 4 Places",desc:"Kuala Lumpur, Langkawi, Penang...",img:"https://images.unsplash.com/photo-1596422846543-75c6fc197f07?w=500"},
-{key:"nepal",title:"🇳🇵 Nepal — 3 Places",desc:"Kathmandu, Pokhara, Everest...",img:"https://images.unsplash.com/photo-1527668752968-14dc70a27cbb?w=500"},
-{key:"paris",title:"🇫🇷 Paris — 3 Places",desc:"Eiffel, Louvre, Versailles...",img:"https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=600"},
-{key:"dubai",title:"🇦🇪 Dubai — 3 Places",desc:"Burj, Desert Safari, Old Dubai...",img:"https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=600"},
-{key:"bali",title:"🇮🇩 Bali — 3 Places",desc:"Uluwatu, Ubud, Tanah Lot...",img:"https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=600"},
-{key:"goa",title:"🇮🇳 Goa — 6 Places",desc:"Baga, Fort Aguada, Dudhsagar...",img:"https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?w=500"},
-{key:"andhra",title:"🇮🇳 Andhra Pradesh — 6 Places",desc:"Araku, Vizag, Tirupati, Narasapur...",img:"https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=500"},
-{key:"london",title:"🇬🇧 London — 3 Places",desc:"Big Ben, Tower Bridge...",img:"https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=600"},
-{key:"tokyo",title:"🇯🇵 Tokyo — 3 Places",desc:"Shibuya, Sensoji, Skytree...",img:"https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=600"},
-{key:"newyork",title:"🇺🇸 New York — 3 Places",desc:"Times Square, Liberty...",img:"https://images.unsplash.com/photo-1490644658840-3f2e3f8c5625?w=600"},
-{key:"thailand",title:"🇹🇭 Thailand — 3 Places",desc:"Phi Phi, Bangkok, Krabi...",img:"https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=600"},
-{key:"maldives",title:"🇲🇻 Maldives — 3 Places",desc:"Overwater, Sandbank...",img:"https://images.unsplash.com/photo-1514282401047-d79a71a590e8?w=600"},
-{key:"switzerland",title:"🇨🇭 Switzerland — 3 Places",desc:"Jungfrau, Zermatt, Lucerne...",img:"https://images.unsplash.com/photo-1527668752968-14dc70a27cbb?w=600"},
-{key:"singapore",title:"🇸🇬 Singapore — 3 Places",desc:"Marina Bay, Sentosa...",img:"https://images.unsplash.com/photo-1525625293386-3f8f993a32c4?w=600"},
-{key:"iceland",title:"🇮🇸 Iceland — 3 Places",desc:"Blue Lagoon, Golden Circle...",img:"https://images.unsplash.com/photo-1504893524553-b855bce32c67?w=500"},
-{key:"egypt",title:"🇪🇬 Egypt — 3 Places",desc:"Pyramids, Luxor, Nile Cruise...",img:"https://images.unsplash.com/photo-1503177119275-0aa32b3a9368?w=500"},
-{key:"sydney",title:"🇦🇺 Sydney — 3 Places",desc:"Opera House, Bondi...",img:"https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?w=600"},
-{key:"rome",title:"🇮🇹 Rome — 3 Places",desc:"Colosseum, Vatican...",img:"https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=600"}
-];
-
-function renderExplore(){
-let grid=document.getElementById('exploreGrid');
-if(!grid) return;
-grid.innerHTML=MAIN_CARDS.map(c=>`<div class="fcard" onclick="showSubPlaces('${c.key}')"><img src="${c.img}"><div class="fcard-info"><h3>${c.title}</h3><p>${c.desc}</p><span class="plan-btn">Explore Places →</span></div></div>`).join('');
-}
-renderExplore();
-
-const DB={
-"munnar":{name:"MUNNAR",days:[
-[{n:"Munnar Tea Gardens",t:"8:00 AM - 1st",h:"Tea valley walk",c:"₹100",i:"https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?w=500"},{n:"Eravikulam National Park",t:"11:00 AM - 2nd",h:"Nilgiri Tahr sanctuary",c:"₹200",i:"https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=500"},{n:"Mattupetty Dam Boating",t:"3:00 PM - 3rd",h:"Boating & dam view",c:"₹50",i:"https://images.unsplash.com/photo-1510414842594-a61c69b5ae57?w=500"}],
-[{n:"Top Station Viewpoint",t:"8:30 AM - 1st",h:"Highest viewpoint clouds",c:"₹50",i:"https://images.unsplash.com/photo-1527668752968-14dc70a27cbb?w=500"},{n:"Echo Point",t:"11:00 AM - 2nd",h:"Echo valley",c:"₹30",i:"https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=500"},{n:"Kundala Lake",t:"3:00 PM - 3rd",h:"Pedal boating",c:"₹100",i:"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=500"}],
-[{n:"Attukal Waterfalls",t:"9:00 AM - 1st",h:"Trek 2km",c:"Free",i:"https://images.unsplash.com/photo-1490735891913-40897cdaafd1?w=500"},{n:"Blossom Park",t:"12:00 PM - 2nd",h:"Flower garden",c:"₹30",i:"https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=500"},{n:"Tea Museum Shopping",t:"5:00 PM - 3rd",h:"Buy tea spices",c:"₹200",i:"https://images.unsplash.com/photo-1527668752968-14dc70a27cbb?w=500"}]
-]},
-"udaipur":{name:"UDAIPUR",days:[
-[{n:"Udaipur City Palace Complex",t:"9:00 AM - 1st",h:"City Palace, Jagdish Temple",c:"₹300",i:"https://images.unsplash.com/photo-1599661046289-e31897846e41?w=500"},{n:"Lake Pichola Boat Ride",t:"11:30 AM - 2nd",h:"0.5km boat to Jag Mandir",c:"₹400",i:"https://images.unsplash.com/photo-1599661046289-e31897846e41?w=500"},{n:"Jag Mandir Island Palace",t:"1:00 PM - 3rd",h:"Island palace",c:"₹300",i:"https://images.unsplash.com/photo-1599661046289-e31897846e41?w=500"}],
-[{n:"Fateh Sagar Lake & Nehru Garden",t:"9:00 AM - 1st",h:"Boating & garden island",c:"₹100",i:"https://images.unsplash.com/photo-1599661046289-e31897846e41?w=500"},{n:"Sajjangarh Monsoon Palace Sunset",t:"4:00 PM - 2nd",h:"Hilltop sunset over lakes",c:"₹100",i:"https://images.unsplash.com/photo-1477587458883-47145ed94245?w=500"},{n:"Ambrai Ghat Evening Aarti",t:"7:00 PM - 3rd",h:"Lake view ghat evening lights",c:"Free",i:"https://images.unsplash.com/photo-1477587458883-47145ed94245?w=500"}],
-[{n:"Saheliyon Ki Bari Garden",t:"9:00 AM - 1st",h:"Maidens garden fountains",c:"₹50",i:"https://images.unsplash.com/photo-1477587458883-47145ed94245?w=500"},{n:"Bagore Ki Haveli Museum",t:"11:00 AM - 2nd",h:"Puppet museum culture show",c:"₹100",i:"https://images.unsplash.com/photo-1599661046289-e31897846e41?w=500"},{n:"Hathi Pol Bazaar Shopping",t:"5:00 PM - 3rd",h:"Miniature paintings",c:"Free",i:"https://images.unsplash.com/photo-1477587458883-47145ed94245?w=500"}]
-]},
-"malshej ghat":{name:"MALSHEJ GHAT",days:[
-[{n:"Malshej Ghat Waterfalls Viewpoint",t:"8:00 AM - 1st",h:"Monsoon waterfalls fog valley",c:"Free",i:"https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=500"},{n:"Harishchandragad Trek Base",t:"11:00 AM - 2nd",h:"Trek to fort 4hrs",c:"Free",i:"https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=500"},{n:"Pimpalgaon Joga Dam Boating",t:"3:00 PM - 3rd",h:"Dam boating flamingo season",c:"₹100",i:"https://images.unsplash.com/photo-1510414842594-a61c69b5ae57?w=500"}],
-[{n:"Malshej Ghat MTDC Resort Sunrise",t:"6:00 AM - 1st",h:"Sunrise over valley",c:"Free",i:"https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=500"},{n:"Ajoba Hill Fort Trek",t:"9:00 AM - 2nd",h:"Valmiki Ashram trek",c:"Free",i:"https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=500"},{n:"Malshej Ghat Flamingo Watching",t:"5:00 PM - 3rd",h:"Seasonal flamingos",c:"Free",i:"https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=500"}],
-[{n:"Kalu Waterfall Trek",t:"8:00 AM - 1st",h:"Tallest waterfall Maharashtra",c:"Free",i:"https://images.unsplash.com/photo-1490735891913-40897cdaafd1?w=500"},{n:"Malshej Ghat Local Misal Pav",t:"12:00 PM - 2nd",h:"Famous Maharashtra misal",c:"₹150",i:"https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=500"},{n:"Malshej Ghat Sunset Point",t:"5:30 PM - 3rd",h:"Valley sunset",c:"Free",i:"https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=500"}]
-]},
-"malaysia":{name:"MALAYSIA",days:[
-[{n:"Petronas Twin Towers KLCC",t:"9:00 AM - 1st",h:"Morning towers observation deck",c:"RM 80",i:"https://images.unsplash.com/photo-1596422846543-75c6fc197f07?w=500"},{n:"Batu Caves Murugan Temple",t:"11:30 AM - 2nd",h:"13km from KL, 272 steps colorful temple",c:"Free",i:"https://images.unsplash.com/photo-1596422846543-75c6fc197f07?w=500"},{n:"KL Tower & Bukit Bintang Night Market",t:"7:00 PM - 3rd",h:"Night market street food",c:"Free",i:"https://images.unsplash.com/photo-1596422846543-75c6fc197f07?w=500"}],
-[{n:"Langkawi Sky Bridge & Cable Car",t:"9:00 AM - 1st",h:"Curved bridge 100m above",c:"RM 55",i:"https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?w=500"},{n:"Langkawi Eagle Square & Cenang Beach",t:"12:00 PM - 2nd",h:"12m eagle statue & beach",c:"Free",i:"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=500"},{n:"Langkawi Night Market",t:"7:00 PM - 3rd",h:"Beach sunset market",c:"Free",i:"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=500"}],
-[{n:"Penang George Town Street Art",t:"9:00 AM - 1st",h:"UNESCO street art & clan jetties",c:"Free",i:"https://images.unsplash.com/photo-1596422846543-75c6fc197f07?w=500"},{n:"Penang Hill & Kek Lok Si Temple",t:"11:00 AM - 2nd",h:"Hill train & largest Buddhist temple",c:"RM 30",i:"https://images.unsplash.com/photo-1596422846543-75c6fc197f07?w=500"},{n:"Penang Gurney Drive Food Street",t:"7:00 PM - 3rd",h:"Famous hawker food street",c:"RM 20",i:"https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=500"}]
-]},
-"paris":{name:"PARIS",days:[
-[{n:"Eiffel Tower",t:"9:00 AM - 1st",h:"Morning less crowd",c:"€25",i:"https://images.unsplash.com/photo-1511739001486-6bfe10ce785f?w=500"},{n:"Trocadero Gardens Photo",t:"11:30 AM - 2nd",h:"0.5km best photo point",c:"Free",i:"https://images.unsplash.com/photo-1499856871958-5b9627545d1a?w=500"},{n:"Seine River Evening Cruise",t:"4:00 PM - 3rd",h:"Same area cruise",c:"€15",i:"https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=500"}],
-[{n:"Louvre Museum Mona Lisa",t:"9:00 AM - 1st",h:"Book online early",c:"€17",i:"https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=500"},{n:"Notre Dame Cathedral",t:"1:00 PM - 2nd",h:"2km walk from Louvre",c:"Free",i:"https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=500"},{n:"Montmartre & Sacre Coeur Sunset",t:"4:00 PM - 3rd",h:"Sunset over Paris",c:"Free",i:"https://images.unsplash.com/photo-1499856871958-5b9627545d1a?w=500"}],
-[{n:"Palace of Versailles",t:"8:30 AM - 1st",h:"Day trip train 1hr",c:"€18",i:"https://images.unsplash.com/photo-1499856871958-5b9627545d1a?w=500"},{n:"Versailles Gardens",t:"12:00 PM - 2nd",h:"Inside palace gardens",c:"Included",i:"https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=500"},{n:"Champs Elysees Shopping",t:"5:00 PM - 3rd",h:"Evening shopping avenue",c:"Free",i:"https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=500"}]
-]},
-"dubai":{name:"DUBAI",days:[
-[{n:"Burj Khalifa Top Floor",t:"9:00 AM - 1st",h:"Morning slot 9AM less crowd",c:"AED 149",i:"https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=500"},{n:"Dubai Mall Aquarium",t:"11:30 AM - 2nd",h:"0.2km attached to Burj",c:"Free",i:"https://images.unsplash.com/photo-1528707304087-98b4d5d7b08b?w=500"},{n:"Dubai Fountain Show",t:"7:00 PM - 3rd",h:"Same place evening show every 30min",c:"Free",i:"https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=500"}],
-[{n:"Desert Safari 4x4 Dune Bashing",t:"3:30 PM - 1st",h:"Hotel pickup dune bashing",c:"AED 200",i:"https://images.unsplash.com/photo-1682686580391-615b1f28e5d7?w=500"},{n:"Camel Farm & Sand Boarding",t:"5:30 PM - 2nd",h:"In desert safari",c:"Included",i:"https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=500"},{n:"BBQ Dinner & Belly Dance",t:"7:30 PM - 3rd",h:"Desert camp dinner show",c:"Included",i:"https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=500"}],
-[{n:"Gold Souk Old Dubai",t:"10:00 AM - 1st",h:"Old Dubai market gold",c:"Free",i:"https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=500"},{n:"Dubai Creek Abra Ride",t:"12:00 PM - 2nd",h:"1km boat ride AED 1",c:"AED 2",i:"https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=500"},{n:"Marina Beach JBR Evening",t:"5:30 PM - 3rd",h:"Evening beach walk JBR",c:"Free",i:"https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?w=500"}]
-]},
-"bali":{name:"BALI",days:[
-[{n:"Uluwatu Temple Cliff",t:"9:00 AM - 1st",h:"Cliff temple morning",c:"$5",i:"https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=500"},{n:"Padang Padang Beach Surf",t:"11:30 AM - 2nd",h:"0.5km beach surf",c:"Free",i:"https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=500"},{n:"Seminyak Beach Sunset Club",t:"5:00 PM - 3rd",h:"Beach club sunset",c:"Free",i:"https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?w=500"}],
-[{n:"Tegallalang Rice Terrace Sunrise",t:"8:00 AM - 1st",h:"Green terrace sunrise",c:"$3",i:"https://images.unsplash.com/photo-1555400038-63f30e0a08ee?w=500"},{n:"Monkey Forest Ubud",t:"11:00 AM - 2nd",h:"5km from terrace, monkeys",c:"$6",i:"https://images.unsplash.com/photo-1604999333679-b86d54738315?w=500"},{n:"Ubud Market Shopping",t:"3:00 PM - 3rd",h:"Same area shopping",c:"Free",i:"https://images.unsplash.com/photo-1534008897995-27a23e859048?w=500"}],
-[{n:"Tanah Lot Sea Temple Sunset",t:"4:00 PM - 1st",h:"Sea temple sunset best",c:"$4",i:"https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=500"},{n:"Canggu Beach Club Party",t:"6:00 PM - 2nd",h:"Sunset club party",c:"Free",i:"https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=500"},{n:"Nusa Dua Night Market Food",t:"8:00 PM - 3rd",h:"Night market seafood",c:"$5",i:"https://images.unsplash.com/photo-1534008897995-27a23e859048?w=500"}]
-]}
-};
-
-function generateRealPhotoTown(place){
-  const name=place.trim();
-  const enc=encodeURIComponent(name);
-  return {
-    name: name.toUpperCase(),
-    isAuto:true,
-    days:[
-      [{n:`${name} Main Temple / Palace`,t:"9:00 AM - 1st",h:`Main attraction of ${name}`,c:"₹50",i:`https://source.unsplash.com/500x300/?${enc},travel,temple&sig=1`},{n:`${name} Local Market Bazaar`,t:"11:30 AM - 2nd",h:`0.5km market`,c:"Free",i:`https://source.unsplash.com/500x300/?${enc},market&sig=2`},{n:`${name} Lake / Park`,t:"4:00 PM - 3rd",h:`Evening park`,c:"Free",i:`https://source.unsplash.com/500x300/?${enc},lake&sig=3`}],
-      [{n:`${name} Hill / Beach Viewpoint`,t:"8:30 AM - 1st",h:`Sunrise viewpoint`,c:"Free",i:`https://source.unsplash.com/500x300/?${enc},mountain,beach&sig=4`},{n:`${name} Fort / Museum Heritage`,t:"11:00 AM - 2nd",h:`Heritage fort museum`,c:"₹100",i:`https://source.unsplash.com/500x300/?${enc},fort,heritage&sig=5`},{n:`${name} Famous Food Street`,t:"7:00 PM - 3rd",h:`Famous food street`,c:"₹200",i:`https://source.unsplash.com/500x300/?${enc},food&sig=6`}],
-      [{n:`${name} Waterfall / Nature Spot`,t:"9:00 AM - 1st",h:`Nature near ${name}`,c:"Free",i:`https://source.unsplash.com/500x300/?${enc},waterfall,nature&sig=7`},{n:`${name} Nearby Village Tour`,t:"12:00 PM - 2nd",h:`Nearby village`,c:"₹100",i:`https://source.unsplash.com/500x300/?${enc},village&sig=8`},{n:`${name} Sunset Point`,t:"5:30 PM - 3rd",h:`Best sunset`,c:"Free",i:`https://source.unsplash.com/500x300/?${enc},sunset&sig=9`}]
-    ]
-  };
-}
-
-function getData(place){
-  let raw=place.toLowerCase().trim().replace(/\s+/g,'');
-  let orig=place.toLowerCase().trim();
-  if(DB[raw]) return DB[raw];
-  if(DB[orig]) return DB[orig];
-  let found=Object.keys(DB).find(k=>{
-    let kk=k.replace(/\s+/g,'').toLowerCase();
-    return orig.includes(k) || raw.includes(kk) || kk.includes(raw) || orig===k;
-  });
-  if(found) return DB[found];
-  return generateRealPhotoTown(place);
-}
-
-function showSubPlaces(parent){
-  let list=SUB_PLACES[parent];
-  if(!list){ quickPlan(parent); return; }
-  let out=document.getElementById('output'); out.style.display='block';
-  let parentName=parent.toUpperCase();
-  out.innerHTML=`
-  <div class="sub-header">
-    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
-      <h2>✨ Beautiful Places in ${parentName} — ${list.length} Places Inside</h2>
-      <button onclick="document.getElementById('output').style.display='none'" style="padding:6px 12px;border-radius:20px;border:1px solid #e2e8f0;background:white;font-weight:700;cursor:pointer">✕ Close</button>
-    </div>
-    <p style="color:#64748b;font-size:12px;margin-top:6px">Click any beautiful place in ${parentName} — then set Days, Budget and make perfect plan!</p>
-    <div class="plan-form">
-      <div><label>📅 Days</label><input id="cDays" type="number" value="3"></div>
-      <div><label>👥 Travellers</label><input id="cTrav" type="number" value="2"></div>
-      <div><label>💰 Budget/Person</label><input id="cBudget" type="number" value="7000"></div>
-      <div><label>👤 Who?</label><select id="cPersona"><option value="friends">Friends</option><option value="couple">Couple</option><option value="family">Family</option><option value="students">Students</option><option value="solo">Solo</option></select></div>
-    </div>
-    <div class="sub-grid">
-      ${list.map(p=>`
-        <div class="sub-card" onclick="planSubPlace('${p.k}', '${parent}')">
-          <img src="${p.i}" alt="${p.n}">
-          <div class="sub-card-body">
-            <h4>${p.n}</h4>
-            <p>${p.d}</p>
-            <button style="margin-top:10px;width:100%;padding:8px;background:#0f172a;color:white;border:none;border-radius:10px;font-weight:800;font-size:12px">✨ Make Plan for ${p.n} →</button>
-          </div>
-        </div>
-      `).join('')}
-    </div>
-  </div>
-  `;
-  out.scrollIntoView({behavior:'smooth'});
-}
-
-function planSubPlace(key, parent){
-  let days=document.getElementById('cDays')?.value||3;
-  let trav=document.getElementById('cTrav')?.value||2;
-  let budget=document.getElementById('cBudget')?.value||7000;
-  let persona=document.getElementById('cPersona')?.value||'friends';
-  renderFullPlan(key, parseInt(days), trav, budget, persona, parent);
-}
-
-function renderFullPlan(p, days, trav, budget, persona, parent){
-  let data=getData(p);
-  let out=document.getElementById('output'); out.style.display='block';
-  let backKey=parent||p.split('_')[0];
-  out.innerHTML=`<h2>✅ ${data.name} • ${days} Days • ${trav} people • ₹${budget}/person • ${persona}</h2>
-  <p style="color:#64748b;font-size:11px;margin-top:6px">${data.isAuto ? `Auto plan for ${data.name} — Live photos from Unsplash for ${data.name}, works for EVERY tourist spot on Earth` : `Real places of ${data.name} — 1st → 2nd → 3rd walkable, 100% real photos.`}</p>
-  <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
-    <button onclick="showSubPlaces('${backKey}')" style="padding:8px 14px;border-radius:20px;border:1px solid #6366f1;background:white;color:#6366f1;font-weight:800;cursor:pointer">← Back to ${backKey.toUpperCase()} Places</button>
-    <button onclick="document.getElementById('output').style.display='none'" style="padding:8px 14px;border-radius:20px;border:1px solid #e2e8f0;background:white;font-weight:700;cursor:pointer">✕ Close</button>
-  </div>
-  `;
-  let total=Math.min(days, data.days.length); if(days>data.days.length) total=days;
-  for(let i=0;i<total;i++){
-    let cl=data.days[i % data.days.length];
-    out.innerHTML+=`<div class="day"><div style="display:flex;justify-content:space-between;align-items:center"><h3>Day ${i+1} - ${cl[0].n} Route</h3><span class="badge">Day ${i+1} • 1st → 2nd → 3rd • Real Photos</span></div><div class="timeline">${cl.map((c,idx)=>`<div class="step"><span class="time">${c.t}</span><img src="${c.i}" alt="${c.n}" onerror="this.src='https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=500'"><div class="step-content"><b>${idx+1}. ${c.n}</b><small style="display:block;color:#64748b">➡️ ${c.h}</small><small style="color:#16a34a;font-weight:700">${c.c}</small><div class="near"><a target="_blank" href="https://www.google.com/maps/search/${encodeURIComponent(c.n+' '+p)}">📍 Map</a><a target="_blank" href="https://www.google.com/maps/search/restaurants+near+${encodeURIComponent(c.n+' '+p)}">🍽️ Food</a><a target="_blank" href="https://www.google.com/maps/search/bike+rental+near+${encodeURIComponent(p)}">🚲 Bike</a><a target="_blank" href="https://www.google.com/maps/search/hotels+in+${encodeURIComponent(p)}">🏨 Stay</a></div></div></div>${idx<cl.length-1?'<div class="arrow">→</div>':''}`).join('')}</div></div>`;
-  }
-  out.scrollIntoView({behavior:'smooth'});
-}
-
-function genAuto(){
-let p=document.getElementById('place').value.trim()||'munnar';
-let days=parseInt(document.getElementById('days').value)||3;
-let trav=document.getElementById('trav').value||2;
-let budget=parseInt(document.getElementById('budget').value)||7000;
-let persona=document.getElementById('persona').value;
-renderFullPlan(p,days,trav,budget,persona,'');
-}
-function quickPlan(place){
-document.getElementById('place').value=place;
-renderFullPlan(place,3,2,7000,'friends','');
-}
-</script>
-</body>
-</html>
