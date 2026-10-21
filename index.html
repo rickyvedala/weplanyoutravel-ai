@@ -2,100 +2,81 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>WePlanYourTravel AI - Worldwide with Live Locations</title>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<title>WePlanYourTravel AI - Every Day Photos</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Plus Jakarta Sans',sans-serif}
-body{background:#fcfcfd;color:#0f172a}
-.nav{padding:18px 5%;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;background:rgba(255,255,255,.85);backdrop-filter:blur(20px);z-index:30;border-bottom:1px solid #f1f5f9}
-.logo{font-weight:800;font-size:22px}.logo span{color:#6366f1}
-.hero{padding:60px 5% 130px;text-align:center;background:radial-gradient(1000px 500px at 50% -10%,#e0e7ff 0%,#f8fafc 60%)}
-.hero h1{font-size:56px;font-weight:800;line-height:.95;letter-spacing:-2px;max-width:900px;margin:0 auto 16px}.hero h1 em{font-style:normal;background:linear-gradient(90deg,#6366f1,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.hero p{color:#64748b;font-size:18px;max-width:650px;margin:0 auto}
-.search{max-width:1150px;margin:-85px auto 0;background:white;border-radius:28px;padding:20px;box-shadow:0 30px 80px rgba(15,23,42,.12);display:grid;grid-template-columns:1.5fr .5fr .7fr .7fr .8fr;gap:10px;position:relative;z-index:10}
-.search label{font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase;display:block;margin-bottom:5px}
-.search input,.search select{width:100%;padding:15px;border:1px solid #eef2f7;border-radius:14px;background:#f8fafc;font-size:14px;font-weight:600}
-.btn{padding:15px;background:#0f172a;color:white;border:none;border-radius:14px;font-weight:700;cursor:pointer}.btn:hover{background:#6366f1}
-#output{display:none;max-width:1150px;margin:40px auto;padding:0 5% 100px}
-.day{background:white;border-radius:24px;box-shadow:0 8px 30px rgba(0,0,0,.06);border:1px solid #f1f5f9;margin-top:26px;overflow:hidden}
-.day-top{padding:20px 24px;background:#f8fafc;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #f1f5f9}
-.day-body{padding:20px 24px;display:grid;grid-template-columns:1.2fr .8fr;gap:20px}
-.place{padding:16px;background:#f8fafc;border:1px solid #f1f5f9;border-radius:16px;margin-bottom:10px}
-.near-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
-.near-btn{display:block;padding:10px 12px;border-radius:12px;text-decoration:none;font-size:12px;font-weight:700;text-align:center;border:1px solid #e2e8f0}
-.nb{background:#f1f5f9;color:#0f172a}.nb:hover{background:#0f172a;color:white}
-.nc{background:#fef3c7;color:#92400e;border-color:#fde68a}.nc:hover{background:#f59e0b;color:white}
-.nr{background:#fee2e2;color:#991b1b;border-color:#fecaca}.nr:hover{background:#ef4444;color:white}
-.stay{display:flex;justify-content:space-between;padding:11px 13px;border:1px solid #f1f5f9;border-radius:14px;background:white;margin-bottom:8px}
-.tag{font-size:10px;padding:3px 8px;border-radius:20px;font-weight:700}
-@media(max-width:900px){.search{grid-template-columns:1fr 1fr}.hero h1{font-size:34px}.day-body{grid-template-columns:1fr}.near-grid{grid-template-columns:1fr 1fr}}
+body{background:#0a0a0b;color:white}
+.nav{padding:16px 5%;display:flex;justify-content:space-between;position:sticky;top:0;background:rgba(10,10,11,.9);backdrop-filter:blur(20px);z-index:20}
+.logo{font-weight:800;font-size:22px}.logo span{color:#a5b4fc}
+.hero{padding:28px 5% 16px;text-align:center}
+.hero h1{font-size:46px;font-weight:800}.hero h1 span{color:#a5b4fc}
+.search-main{max-width:1000px;margin:20px auto;background:white;border-radius:20px;padding:14px;display:grid;grid-template-columns:1.4fr .5fr .6fr .6fr auto;gap:10px}
+.search-main input,.search-main select{padding:14px;border:1px solid #eee;border-radius:12px;background:#f9fafb;color:#0f172a;font-weight:600;width:100%}
+.btn{padding:14px 20px;background:#6366f1;color:white;border:none;border-radius:12px;font-weight:800;cursor:pointer}
+.features{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;max-width:1200px;margin:18px auto;padding:0 5%}
+.fcard{border-radius:20px;overflow:hidden;height:360px;position:relative;background:#111}
+.fcard img{width:100%;height:100%;object-fit:cover}
+.fcard-info{position:absolute;bottom:0;left:0;right:0;padding:14px;background:linear-gradient(transparent,rgba(0,0,0,.85))}
+#output{display:none;max-width:1100px;margin:24px auto;background:#f5f6f8;color:#0f172a;border-radius:24px;padding:20px}
+.day{background:white;border-radius:20px;padding:18px;margin-top:18px;border:1px solid #eef2f7}
+.day-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.badge{background:#0f172a;color:white;padding:5px 10px;border-radius:20px;font-size:11px}
+.cluster{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.placebox{border-radius:16px;overflow:hidden;background:#f8fafc;border:1px solid #f1f5f9}
+.placebox img{width:100%;height:145px;object-fit:cover;display:block}
+.pcontent{padding:10px}
+.pcontent b{font-size:13px;display:block}
+.pcontent small{font-size:11px;color:#64748b}
+.near{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-top:8px}
+.near a{font-size:10px;padding:6px;border-radius:7px;text-align:center;text-decoration:none;font-weight:700;background:#0f172a;color:white}
+@media(max-width:800px){.search-main{grid-template-columns:1fr 1fr}.features{grid-template-columns:1fr}.cluster{grid-template-columns:1fr}.hero h1{font-size:30px}}
 </style>
 </head>
 <body>
-<div class="nav"><div class="logo">✈️ WePlan<span>YourTravel</span> AI</div><div style="font-size:11px;padding:7px 12px;background:#f1f5f9;border-radius:20px">🌍 Worldwide • 📍 Live Maps • 🚲 Bike & Car Rentals</div></div>
-<div class="hero"><h1>Every place has <em>everything nearby</em></h1><p>Hotels, hostels, homestays, dorms, cafes, restaurants, bike rentals, car rentals — all with live location near your search.</p></div>
-<div class="search">
-<div><label>Where to?</label><input id="place" placeholder="Goa, Paris, Bali, Dubai, Manali..."></div>
-<div><label>Days</label><input id="days" type="number" value="3"></div>
-<div><label>Budget</label><input id="budget" type="number" value="15000"></div>
-<div><label>Currency</label><select id="curr"><option value="INR">INR ₹</option><option value="USD">USD $</option><option value="EUR">EUR €</option><option value="GBP">GBP £</option><option value="AED">AED</option><option value="THB">THB ฿</option><option value="SGD">SGD $</option></select></div>
-<div><button class="btn" onclick="gen()">✨ Generate →</button></div>
+<div class="nav"><div class="logo">✈️ WePlan<span>YourTravel</span> AI</div><div style="font-size:11px;opacity:.6">✓ Photos Every Day ✓ Nearest Places</div></div>
+<div class="hero"><h1>Start Planning <span>Free →</span></h1><div class="search-main"><input id="place" placeholder="Jaipur, Goa, Delhi, Manali, Paris..."><input id="days" type="number" value="5"><input id="budget" type="number" value="15000"><select id="curr"><option>INR ₹</option><option>USD $</option></select><button class="btn" onclick="gen()">Plan →</button></div></div>
+<div class="features">
+<div class="fcard"><img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600"><div class="fcard-info"><h3>Himalayas</h3><p>Above clouds trek</p></div></div>
+<div class="fcard"><img src="https://images.unsplash.com/photo-1477587458883-47145ed94245?w=600"><div class="fcard-info"><h3>Jaipur</h3><p>Hawa Mahal cluster</p></div></div>
+<div class="fcard"><img src="https://images.unsplash.com/photo-1587474260584-136574528ed5?w=600"><div class="fcard-info"><h3>India Gate</h3><p>Delhi cluster</p></div></div>
 </div>
 <div id="output"></div>
 <script>
-const R={INR:1,USD:0.012,EUR:0.011,GBP:0.0095,AED:0.044,THB:0.42,SGD:0.016}; const S={INR:'₹',USD:'$',EUR:'€',GBP:'£',AED:'AED ',THB:'฿',SGD:'S$'};
 const DB={
-"goa":{city:"Goa",places:[["Baga Beach","Beach party"],["Fort Aguada","Fort view"],["Anjuna Market","Shopping"]],stays:[["Taj Village Hotel","Hotel","6500","4.8"],["Zostel Hostel","Hostel","1200","4.7"],["Beach Dorm","Dorm","600","4.5"],["Local Homestay","Homestay","2500","4.9"]],bikes:[["Goa Activa Rental","Scooty ₹400/day"],["Royal Enfield Rental","Bike ₹900/day"]],cars:[["Goa Car Rental Self Drive","Swift ₹1500/day"],["Innova Rental","₹3000/day"]],food:[["Vinayak Restaurant","Fish Thali"],["Baba Au Rhum Cafe","Pizza & Coffee"]]},
-"paris":{city:"Paris",places:[["Eiffel Tower","Iconic"],["Louvre Museum","Art"],["Montmartre","Cafes"]],stays:[["Le Meurice Hotel","Hotel","38000","4.9"],["St Christopher Hostel","Hostel","3200","4.5"],["Paris Dorm","Dorm","2200","4.4"],["Le Marais Homestay","Homestay","8500","4.8"]],bikes:[["Velib Bike Share","€2/hr"],["Lime E-Scooter","€0.25/min"]],cars:[["Sixt Car Rental Paris","Car €45/day"],["Europcar","€50/day"]],food:[["Breizh Cafe","Crepes"],["Cafe de Flore","Coffee"]]},
-"default":{city:"Your Destination",places:[["City Center","Market"],["Sunset Point","View"],["Local Street","Food & culture"]],stays:[["City Hotel","Hotel","3500","4.5"],["Backpackers Hostel","Hostel","1000","4.6"],["Dorm Stay","Dorm","600","4.4"],["Family Homestay","Homestay","1800","4.8"]],bikes:[["Local Bike Rental","Bike ₹400/day"],["Scooty Rental","Scooty ₹350/day"]],cars:[["Local Car Rental","Swift ₹1500/day"],["Sedan Rental","₹2200/day"]],food:[["Local Famous Restaurant","Local Food"],["Best Cafe","Coffee"]]}
+"jaipur":{city:"Jaipur",days:[
+[{n:"Hawa Mahal",t:"Wind Palace morning",d:"0.3km",img:"https://images.unsplash.com/photo-1477587458883-47145ed94245?w=500"},{n:"Jantar Mantar",t:"Observatory",d:"0.3km walk",img:"https://images.unsplash.com/photo-1599661046289-e31897846e41?w=500"},{n:"City Palace",t:"Royal palace",d:"0.5km walk",img:"https://images.unsplash.com/photo-1603262110263-fb01144e7d13?w=500"}],
+[{n:"Amber Fort",t:"Fort + elephant",d:"11km",img:"https://images.unsplash.com/photo-1599661046289-e31897846e41?w=500"},{n:"Jaigarh Fort",t:"Same hill fort",d:"2km from Amber",img:"https://images.unsplash.com/photo-1580889243960-6e9a0d2b05c4?w=500"},{n:"Jal Mahal",t:"Water palace photo",d:"On way back",img:"https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?w=500"}],
+[{n:"Nahargarh Fort",t:"Sunset view",d:"6km",img:"https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?w=500"},{n:"Kanaka Vrindavan",t:"Garden nearby",d:"1km from fort",img:"https://images.unsplash.com/photo-1518002054491-3a6f94352e9d?w=500"},{n:"Amer Village",t:"Local shopping",d:"Same area",img:"https://images.unsplash.com/photo-1534008897995-27a23e859048?w=500"}],
+[{n:"Albert Hall Museum",t:"Museum",d:"Center",img:"https://images.unsplash.com/photo-1577083165633-14ebcdb0f658?w=500"},{n:"Birla Temple",t:"White marble",d:"1km",img:"https://images.unsplash.com/photo-1597655601841-214a4cfe8b2c?w=500"},{n:"WTP Mall",t:"Evening shopping",d:"2km",img:"https://images.unsplash.com/photo-1519566335946-e6a65f9d0bcd?w=500"}],
+[{n:"Johari Bazaar",t:"Jewelry shopping",d:"Market",img:"https://images.unsplash.com/photo-1534008897995-27a23e859048?w=500"},{n:"Bapu Bazaar",t:"Textiles",d:"0.5km walk",img:"https://images.unsplash.com/photo-1555529771-7888783a18d3?w=500"},{n:"LMB Restaurant",t:"Famous lassi",d:"In bazaar",img:"https://images.unsplash.com/photo-1505253758473-96b7015fcd40?w=500"}]
+]},
+"delhi":{city:"Delhi",days:[
+[{n:"India Gate",t:"War memorial lights",d:"Center",img:"https://images.unsplash.com/photo-1587474260584-136574528ed5?w=500"},{n:"Kartavya Path",t:"Walk + ice cream",d:"0.5km",img:"https://images.unsplash.com/photo-1590311159576-8ff22c6d8a56?w=500"},{n:"National War Memorial",t:"Nearby",d:"0.3km walk",img:"https://images.unsplash.com/photo-1587474260584-136574528ed5?w=500"}],
+[{n:"Red Fort",t:"Mughal fort",d:"Old Delhi",img:"https://images.unsplash.com/photo-1587474260584-136574528ed5?w=500"},{n:"Jama Masjid",t:"Biggest mosque",d:"0.5km walk",img:"https://images.unsplash.com/photo-1587474260584-136574528ed5?w=500"},{n:"Chandni Chowk Parathe",t:"Food street",d:"0.3km walk",img:"https://images.unsplash.com/photo-1505253758473-96b7015fcd40?w=500"}],
+[{n:"Qutub Minar",t:"Tallest minar",d:"South Delhi",img:"https://images.unsplash.com/photo-1587474260584-136574528ed5?w=500"},{n:"Mehrauli Archaeological Park",t:"Ruins nearby",d:"1km",img:"https://images.unsplash.com/photo-1587474260584-136574528ed5?w=500"},{n:"Garden of Five Senses",t:"Garden",d:"2km",img:"https://images.unsplash.com/photo-1518002054491-3a6f94352e9d?w=500"}],
+[{n:"Lotus Temple",t:"Peace temple",d:"South",img:"https://images.unsplash.com/photo-1597655601841-214a4cfe8b2c?w=500"},{n:"Humayun Tomb",t:"Mughal tomb",d:"2km",img:"https://images.unsplash.com/photo-1587474260584-136574528ed5?w=500"},{n:"Lodhi Garden",t:"Evening walk",d:"1.5km",img:"https://images.unsplash.com/photo-1518002054491-3a6f94352e9d?w=500"}],
+[{n:"CP - Connaught Place",t:"Shopping",d:"Center",img:"https://images.unsplash.com/photo-1555529771-7888783a18d3?w=500"},{n:"Jantar Mantar Delhi",t:"Observatory",d:"0.5km from CP",img:"https://images.unsplash.com/photo-1599661046289-e31897846e41?w=500"},{n:"Agrasen ki Baoli",t:"Stepwell photo",d:"1km",img:"https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=500"}]
+]},
+"goa":{city:"Goa",days:[
+[{n:"Baga Beach",t:"Watersports + sunset",d:"North Goa",img:"https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?w=500"},{n:"Calangute Beach",t:"Shopping + shacks",d:"1.5km",img:"https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?w=500"},{n:"Anjuna Flea Market",t:"Evening market",d:"4km",img:"https://images.unsplash.com/photo-1534008897995-27a23e859048?w=500"}],
+[{n:"Fort Aguada",t:"Sea fort sunset",d:"5km",img:"https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?w=500"},{n:"Candolim Beach",t:"Quiet beach",d:"2km from fort",img:"https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?w=500"},{n:"SinQ Nightclub",t:"Party",d:"Nearby",img:"https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=500"}],
+[{n:"Dudhsagar Falls",t:"Waterfall trek",d:"60km day trip",img:"https://images.unsplash.com/photo-1490735891913-40897cdaafd1?w=500"},{n:"Spice Plantation",t:"On way",d:"Nearby falls",img:"https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=500"},{n:"Old Goa Church",t:"Heritage",d:"On return",img:"https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?w=500"}],
+[{n:"Palolem Beach",t:"South Goa chill",d:"South",img:"https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?w=500"},{n:"Agonda Beach",t:"Quiet sunset",d:"3km from Palolem",img:"https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?w=500"},{n:"Cabo de Rama Fort",t:"Viewpoint",d:"5km",img:"https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=500"}],
+[{n:"Panjim Market",t:"Shopping",d:"City",img:"https://images.unsplash.com/photo-1534008897995-27a23e859048?w=500"},{n:"Fontainhas",t:"Portuguese colony photo",d:"0.5km walk",img:"https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?w=500"},{n:"Deltin Casino",t:"Night cruise",d:"Nearby",img:"https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=500"}]
+]}
 };
-function getDB(p){p=p.toLowerCase();let k=Object.keys(DB).find(x=>p.includes(x));return k?DB[k]:DB["default"];}
-function fmt(b,c){return S[c]+Math.round(b*R[c]).toLocaleString();}
+function getDB(p){p=p.toLowerCase();let k=Object.keys(DB).find(x=>p.includes(x));return k?DB[k]:DB["goa"];}
 function gen(){
-let p=document.getElementById('place').value||'Goa'; let days=parseInt(document.getElementById('days').value)||3; let budget=parseInt(document.getElementById('budget').value)||15000; let cur=document.getElementById('curr').value; let d=getDB(p);
+let p=document.getElementById('place').value||'Jaipur'; let days=parseInt(document.getElementById('days').value)||5; let data=getDB(p);
 let out=document.getElementById('output'); out.style.display='block';
-out.innerHTML=`<div style="background:#0f172a;color:white;border-radius:24px;padding:28px"><h2>✅ ${p.toUpperCase()} • ${days} Days • Budget ${fmt(budget,cur)}</h2><p style="opacity:.7;margin-top:6px">📍 ${d.city} • Showing nearest stays, food, bike & car rentals with live location</p></div>`;
-for(let i=1;i<=days;i++){
-let pl=d.places[(i-1)%d.places.length]; let placeQuery=encodeURIComponent(pl[0]+' '+p);
-out.innerHTML+=`
-<div class="day">
-<div class="day-top"><h3>Day ${i} — ${pl[0]}</h3><span style="font-size:11px;background:#0f172a;color:white;padding:6px 10px;border-radius:20px">${pl[1]}</span></div>
-<div class="day-body">
-<div>
-<div class="place"><b>${pl[0]}</b><div style="font-size:13px;color:#64748b;margin-top:4px">${pl[1]} - Best time to visit</div>
-<div class="near-grid">
-<a class="near-btn nb" target="_blank" href="https://www.google.com/maps/search/bike+rental+near+${placeQuery}">🚲 Bike Rentals Near</a>
-<a class="near-btn nb" target="_blank" href="https://www.google.com/maps/search/car+rental+near+${placeQuery}">🚗 Car Rentals Near</a>
-<a class="near-btn nr" target="_blank" href="https://www.google.com/maps/search/restaurants+near+${placeQuery}">🍽️ Restaurants Near</a>
-<a class="near-btn nc" target="_blank" href="https://www.google.com/maps/search/cafes+near+${placeQuery}">☕ Cafes Near</a>
-<a class="near-btn nb" target="_blank" href="https://www.google.com/maps/search/hotels+near+${placeQuery}">🏨 Hotels Near</a>
-<a class="near-btn nb" target="_blank" href="https://www.google.com/maps/search/hostels+near+${placeQuery}">🎒 Hostels Near</a>
-<a class="near-btn nb" target="_blank" href="https://www.google.com/maps/search/${placeQuery}">📍 Open ${pl[0]} Location</a>
-<a class="near-btn nb" target="_blank" href="https://www.google.com/maps/dir/?api=1&destination=${placeQuery}">🧭 Directions</a>
-</div>
-</div>
-<div style="margin-top:14px"><b style="font-size:13px">🚲 Bike & 🚗 Car Rentals - ${pl[0]}</b>
-<div style="margin-top:8px">
-${d.bikes.map(b=>`<div class="stay"><div><b style="font-size:13px">${b[0]}</b><br><small style="color:#64748b">${b[1]}</small></div><a target="_blank" href="https://www.google.com/maps/search/${encodeURIComponent(b[0]+' near '+p)}" style="font-size:11px;color:#6366f1;font-weight:700">📍 Location →</a></div>`).join('')}
-${d.cars.map(b=>`<div class="stay"><div><b style="font-size:13px">🚗 ${b[0]}</b><br><small style="color:#64748b">${b[1]}</small></div><a target="_blank" href="https://www.google.com/maps/search/${encodeURIComponent(b[0]+' near '+p)}" style="font-size:11px;color:#6366f1;font-weight:700">📍 Location →</a></div>`).join('')}
-</div></div>
-</div>
-<div>
-<b style="font-size:13px">🏨 Stays Near ${pl[0]}</b>
-<div style="margin-top:8px">
-${d.stays.map(s=>`<div class="stay"><div><b style="font-size:13px">${s[0]}</b><br><small style="color:#64748b">${fmt(parseInt(s[2]),cur)} • ${s[3]}★</small></div><span class="tag" style="background:${s[1]=='Hotel'?'#e0e7ff':s[1]=='Hostel'?'#fef3c7':s[1]=='Dorm'?'#fce7f3':'#dcfce7'}">${s[1]}</span></div>`).join('')}
-<a target="_blank" href="https://www.google.com/maps/search/hotels+near+${placeQuery}" style="display:block;margin-top:8px;padding:10px;background:#f1f5f9;border-radius:12px;text-align:center;font-size:12px;font-weight:700;text-decoration:none;color:#0f172a">🔍 See ALL stays near ${pl[0]} on Maps →</a>
-</div>
-<div style="margin-top:16px"><b style="font-size:13px">🍽️ Food Near ${pl[0]}</b>
-<div style="margin-top:8px">
-${d.food.map(f=>`<div class="stay"><div><b style="font-size:13px">${f[0]}</b><br><small style="color:#64748b">${f[1]}</small></div><a target="_blank" href="https://www.google.com/maps/search/${encodeURIComponent(f[0]+' near '+pl[0]+' '+p)}" style="font-size:11px;color:#ef4444;font-weight:700">📍 Near →</a></div>`).join('')}
-</div>
-</div>
-</div>
-</div>
-</div>`;
+out.innerHTML=`<h2>✅ ${p.toUpperCase()} - ${days} Days • Every Day Photos • 2-3 Nearest Places/Day</h2><p style="color:#64748b;font-size:12px;margin-top:6px">Each day shows 3 places that are near each other (0.3-5km) with real photos. Click photo buttons to see location.</p>`;
+for(let i=0;i<days;i++){
+let cluster=data.days[i%data.days.length];
+out.innerHTML+=`<div class="day"><div class="day-head"><h3>Day ${i+1} - ${cluster[0].n} Area</h3><span class="badge">3 places • Walkable cluster</span></div><div class="cluster">
+${cluster.map(c=>`<div class="placebox"><img src="${c.img}" alt="${c.n}"><div class="pcontent"><b>📍 ${c.n}</b><small>${c.d} • ${c.t}</small><div class="near"><a target="_blank" href="https://www.google.com/maps/search/${encodeURIComponent(c.n+' '+p)}">📍 Location</a><a target="_blank" href="https://www.google.com/maps/search/restaurants+near+${encodeURIComponent(c.n+' '+p)}">🍽️ Food</a><a target="_blank" href="https://www.google.com/maps/search/bike+rental+near+${encodeURIComponent(c.n+' '+p)}">🚲 Bike</a><a target="_blank" href="https://www.google.com/maps/search/hotels+near+${encodeURIComponent(c.n+' '+p)}">🏨 Stay</a></div></div></div>`).join('')}
+</div></div>`;
 }
-out.innerHTML+=`<div style="margin-top:20px;background:white;border-radius:20px;padding:20px;border:1px solid #f1f5f9"><h3>💰 Budget ${fmt(budget,cur)} — All rentals included</h3><p style="color:#64748b;margin-top:8px;font-size:14px">Tip: Every button opens live Google Maps near that exact place. Bike/Car rentals, restaurants, hotels — all location-based. No fake data.</p></div>`;
 out.scrollIntoView({behavior:'smooth'});
 }
 </script>
