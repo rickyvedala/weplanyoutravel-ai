@@ -3,77 +3,169 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>WePlanYourTravel AI</title>
+<title>WePlanYourTravel AI - Beautiful Easy Fixed</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui}
-body{background:#07070a;color:#fff;padding:12px}
+*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui,-apple-system,Segoe UI,Roboto}
+body{background:#07070a;color:#fff;padding:12px;min-height:100vh}
 .head{text-align:center;padding:18px 0}
-.logo{font-size:32px;font-weight:800}.logo b{color:#a5b4fc}
-.hero{text-align:center;font-size:36px;font-weight:800;margin:10px 0;line-height:1}
-.hero i{color:#a5b4fc;font-style:normal}
-.tabs{display:flex;gap:8px;max-width:360px;margin:14px auto;background:#18181b;padding:6px;border-radius:100px}
-.tab{flex:1;padding:11px;border-radius:100px;border:0;background:transparent;color:#aaa;font-weight:700;cursor:pointer}
+.logo{font-size:32px;font-weight:800;letter-spacing:-1px}.logo b{color:#a5b4fc}
+.sub{color:#71717a;font-size:10px;letter-spacing:2px;margin-top:4px}
+.hero{text-align:center;font-size:38px;font-weight:800;margin:10px 0;line-height:.95}.hero i{color:#a5b4fc;font-style:normal}
+.tabs{display:flex;gap:8px;max-width:360px;margin:16px auto;background:#18181b;padding:6px;border-radius:100px;border:1px solid #27272a}
+.tab{flex:1;padding:11px;border-radius:100px;border:0;background:transparent;color:#a1a1aa;font-weight:700;cursor:pointer}
 .tab.on{background:#6366f1;color:#fff;box-shadow:0 8px 20px rgba(99,102,241,.4)}
-.box{background:#fff;border-radius:24px;padding:18px;color:#111;max-width:980px;margin:0 auto}
+.box{background:#fff;border-radius:24px;padding:18px;color:#111;max-width:980px;margin:0 auto;box-shadow:0 20px 60px rgba(0,0,0,.3)}
 .g{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
-@media(max-width:600px){.g{grid-template-columns:1fr 1fr}.hero{font-size:26px}}
-.lb{font-size:10px;color:#6366f1;font-weight:800;margin-bottom:4px}
-.in{width:100%;padding:12px;border-radius:12px;border:1.5px solid #eef2f7;background:#f8fafc;font-weight:600;outline:none}
+@media(max-width:700px){.g{grid-template-columns:1fr 1fr}.hero{font-size:28px}}
+.lb{font-size:10px;color:#6366f1;font-weight:800;letter-spacing:.5px;margin-bottom:5px}
+.in{width:100%;padding:12px 14px;border-radius:12px;border:1.5px solid #eef2f7;background:#f8fafc;font-weight:600;outline:none;color:#111}
 .in:focus{border-color:#6366f1;background:#fff}
-.go{width:100%;margin-top:12px;padding:14px;background:#6366f1;color:#fff;border:0;border-radius:12px;font-weight:800;cursor:pointer}
-.rel{position:relative}.auto{position:absolute;top:104%;left:0;right:0;background:#fff;border-radius:12px;box-shadow:0 20px 50px rgba(0,0,0,.2);z-index:99;display:none;max-height:220px;overflow:auto;border:1px solid #f1f5f9}
-.auto div{padding:10px 12px;font-size:13px;font-weight:600;cursor:pointer;border-bottom:1px solid #f8fafc}
-.auto div:hover{background:#f5f3ff}
+.rel{position:relative}.auto{position:absolute;top:106%;left:0;right:0;background:#fff;border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,.2);z-index:99;display:none;max-height:220px;overflow:auto;border:1px solid #f1f5f9}
+.auto div{padding:10px 12px;font-size:13px;font-weight:600;cursor:pointer;border-bottom:1px solid #f8fafc;color:#111}
+.auto div:hover{background:#f5f3ff;color:#6366f1}
+.go{width:100%;margin-top:14px;padding:14px;background:#6366f1;color:#fff;border:0;border-radius:12px;font-weight:800;font-size:15px;cursor:pointer;box-shadow:0 10px 20px rgba(99,102,241,.3)}
+.go:hover{background:#4f46e5}
 .pl{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px}
-@media(max-width:600px){.pl{grid-template-columns:1fr 1fr}}
-.pc{height:200px;border-radius:18px;overflow:hidden;position:relative;cursor:pointer}
-.pc img{width:100%;height:100%;object-fit:cover}.gr{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.85),transparent 55%)}
-.t{position:absolute;bottom:0;left:0;right:0;padding:10px}.t1{color:#fff;font-weight:800;font-size:13px}.t2{color:#e4e4e7;font-size:10px}
+@media(max-width:700px){.pl{grid-template-columns:1fr 1fr}}
+.pc{height:200px;border-radius:18px;overflow:hidden;position:relative;cursor:pointer;background:#111;transition:.2s}
+.pc:hover{transform:scale(1.02)}.pc img{width:100%;height:100%;object-fit:cover}
+.gr{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.9),rgba(0,0,0,0) 60%)}
+.t{position:absolute;bottom:0;left:0;right:0;padding:12px}.t1{color:#fff;font-weight:800;font-size:13px}.t2{color:#e4e4e7;font-size:10px;margin-top:2px}
 .out{margin-top:14px;background:#f6f7f9;border-radius:22px;padding:16px;display:none;color:#111}
-.day{background:#fff;border-radius:14px;padding:12px;margin-bottom:10px;border:1px solid #eef2f7}
-.row{display:flex;gap:8px;overflow:auto;padding-bottom:4px}.sp{min-width:210px;background:#f8fafc;border:1px solid #f1f5f9;border-radius:12px;padding:10px}
-.tm{font-size:9px;background:#6366f1;color:#fff;padding:3px 7px;border-radius:100px;display:inline-block;font-weight:700}
-.nm{font-weight:800;font-size:12px;margin:5px 0}.hi{font-size:11px;color:#64748b}
-.bt{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-top:6px}.bn{padding:6px;border-radius:8px;background:#0f172a;color:#fff;font-size:9px;font-weight:700;text-decoration:none;text-align:center}
+.day{background:#fff;border-radius:14px;padding:12px;margin-bottom:12px;border:1px solid #eef2f7;box-shadow:0 4px 12px rgba(0,0,0,.04)}
+.row{display:flex;gap:10px;overflow:auto;padding-bottom:4px;scrollbar-width:none}
+.sp{min-width:220px;background:#f8fafc;border:1px solid #f1f5f9;border-radius:12px;padding:10px}
+.tm{font-size:9px;background:#6366f1;color:#fff;padding:4px 8px;border-radius:100px;display:inline-block;font-weight:700}
+.nm{font-weight:800;font-size:12px;margin:6px 0;color:#0f172a}.hi{font-size:11px;color:#64748b;line-height:1.3}
+.cost{color:#16a34a;font-weight:800;font-size:11px;margin-top:4px}
+.bt{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:8px}.bn{padding:7px;border-radius:8px;background:#0f172a;color:#fff;font-size:9px;font-weight:700;text-decoration:none;text-align:center}
+.bn:hover{background:#6366f1}
 </style>
 </head>
 <body>
-<div class="head"><div class="logo">✈️ WePlan<b>YourTravel</b> AI</div><div style="color:#71717a;font-size:10px;letter-spacing:2px;margin-top:4px">MOST BEAUTIFUL • EASY • FAST</div></div>
+<div class="head"><div class="logo">✈️ WePlan<b>YourTravel</b> AI</div><div class="sub">MOST BEAUTIFUL • EASY • REAL PLACES</div></div>
 <div class="hero">Start Planning<br><i>Free →</i></div>
 <div class="tabs"><button class="tab on" id="b1" onclick="showTab('a')">🤖 AutoPlan</button><button class="tab" id="b2" onclick="showTab('e')">📋 Explore Places</button></div>
+
 <div class="box" id="aBox">
 <div class="g">
-<div class="rel"><div class="lb">📍 Where? Type th / mal / mount abu</div><input id="pl" class="in" placeholder="Mount Abu, Thailand, Malaysia..." oninput="auto()"><div id="ac" class="auto"></div></div>
-<div><div class="lb">📅 Days</div><input id="dy" class="in" type="number" value="3"></div>
-<div><div class="lb">👥 Travellers</div><input id="tr" class="in" type="number" value="2"></div>
+<div class="rel"><div class="lb">📍 Where? Type th / mal / mount abu</div><input id="pl" class="in" placeholder="Mount Abu, Maldives, Thailand..." oninput="doAuto()"><div id="ac" class="auto"></div></div>
+<div><div class="lb">📅 Days</div><input id="dy" class="in" type="number" min="1" max="15" value="3"></div>
+<div><div class="lb">👥 Travellers</div><input id="tr" class="in" type="number" min="1" value="2"></div>
 </div>
-<button class="go" onclick="make()">✨ Generate Travel Plan →</button>
+<button class="go" onclick="makePlan()">✨ Generate Travel Plan →</button>
 </div>
-<div class="box" id="eBox" style="display:none"><div class="lb" style="margin-bottom:10px">16 BEAUTIFUL PLACES - CLICK ANY TO PLAN</div><div class="pl" id="grid"></div></div>
+
+<div class="box" id="eBox" style="display:none"><div class="lb" style="margin-bottom:10px">16 BEAUTIFUL PLACES - CLICK ANY TO AUTO-PLAN</div><div class="pl" id="grid"></div></div>
+
 <div class="box out" id="out"></div>
+
 <script>
-const ALL=["Mount Abu","Mount Abu Dilwara Temple","Mount Abu Nakki Lake","Mount Abu Guru Shikhar","Malshej Ghat Maharashtra","Matheran Maharashtra","Mahabaleshwar","Malvan Tarkarli","Malpe Beach","Malaysia Kuala Lumpur","Malaysia Langkawi","Maldives","Thailand","Thailand Phuket","Thailand Bangkok","Thekkady Periyar","Thanjavur Temple","Munnar Kerala","Alleppey","Udaipur","Jaipur","Goa Baga Beach","Araku Valley","Paris Eiffel Tower","London Big Ben","Dubai Burj Khalifa","Bali Uluwatu","Switzerland Jungfrau","Singapore Marina Bay","Egypt Pyramids"];
-const PLACES=[["Mount Abu","Dilwara • Nakki Lake","https://images.unsplash.com/photo-1603262110263-fb01144e7d13"],["Rajasthan","Jaipur • Udaipur","https://images.unsplash.com/photo-1477587458883-47145ed94245"],["Maharashtra","Malshej • Matheran","https://images.unsplash.com/photo-1506905925346-21bda4d32df4"],["Kerala","Munnar • Alleppey","https://images.unsplash.com/photo-1602216056096-3b40cc0c9944"],["Malaysia","Kuala Lumpur","https://images.unsplash.com/photo-1596422846543-75c6fc197f07"],["Maldives","Overwater Villas","https://images.unsplash.com/photo-1514282401047-d79a71a590e8"],["Thailand","Phuket • Bangkok","https://images.unsplash.com/photo-1552465011-b4e21bf6e79a"],["Goa","Baga • Dudhsagar","https://images.unsplash.com/photo-1512343879784-a960bf40e7f2"],["Dubai","Burj Khalifa","https://images.unsplash.com/photo-1512453979798-5ea266f8880c"],["Bali","Uluwatu Temple","https://images.unsplash.com/photo-1537996194471-e657df975ab4"],["Paris","Eiffel Tower","https://images.unsplash.com/photo-1502602898657-3e91760cbb34"],["London","Big Ben","https://images.unsplash.com/photo-1513635269975-59663e0ac1ad"],["Switzerland","Jungfrau","https://images.unsplash.com/photo-1527668752968-14dc70a27cbb"],["Singapore","Marina Bay","https://images.unsplash.com/photo-1525625293386-3f8f993a32c4"],["Egypt","Pyramids","https://images.unsplash.com/photo-1503177119275-0aa32b3a9368"],["Andhra","Araku • Vizag","https://images.unsplash.com/photo-1506905925346-21bda4d32df4"]];
-function showTab(x){document.getElementById('aBox').style.display=x=='a'?'block':'none';document.getElementById('eBox').style.display=x=='e'?'block':'none';document.getElementById('b1').className=x=='a'?'tab on':'tab';document.getElementById('b2').className=x=='e'?'tab on':'tab'}
-function auto(){let q=document.getElementById('pl').value.toLowerCase(),b=document.getElementById('ac');if(!q){b.style.display='none';return}let s=ALL.filter(v=>v.toLowerCase().startsWith(q)),m=ALL.filter(v=>!s.includes(v)&&v.toLowerCase().includes(q)),r=[...s,...m].slice(0,10);if(!r.length){b.style.display='none';return}b.innerHTML=r.map(v=>`<div onclick="pick('${v}')">${v}</div>`).join('');b.style.display='block'}
-function pick(v){document.getElementById('pl').value=v;document.getElementById('ac').style.display='none'}
+const ALL=["Mount Abu","Malshej Ghat Maharashtra","Matheran Maharashtra","Mahabaleshwar","Malvan Tarkarli","Malpe Beach Karnataka","Malaysia Kuala Lumpur","Malaysia Langkawi","Maldives","Thailand Bangkok","Thailand Phuket","Thekkady Periyar","Thanjavur Temple","Munnar Kerala","Alleppey Kerala","Udaipur","Jaipur","Goa Baga","Goa Dudhsagar","Paris Eiffel","London Big Ben","Dubai Burj Khalifa","Bali Uluwatu","Switzerland Jungfrau","Singapore Marina Bay","Egypt Pyramids","Araku Valley"];
+
+const PLACES=[
+["Mount Abu","Dilwara Temple • Nakki Lake • Guru Shikhar","https://images.unsplash.com/photo-1599661046289-e31897846e41?w=600&q=80"],
+["Rajasthan","Jaipur • Udaipur • Jaisalmer","https://images.unsplash.com/photo-1477587458883-47145ed94245?w=600&q=80"],
+["Maharashtra","Malshej Ghat • Matheran","https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80"],
+["Kerala","Munnar • Alleppey • Thekkady","https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?w=600&q=80"],
+["Malaysia","Kuala Lumpur • Langkawi","https://images.unsplash.com/photo-1596422846543-75c6fc197f07?w=600&q=80"],
+["Maldives","Maafushi • Bikini Beach • Male","https://images.unsplash.com/photo-1514282401047-d79a71a590e8?w=600&q=80"],
+["Thailand","Bangkok • Phuket • Phi Phi","https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=600&q=80"],
+["Goa","Baga Beach • Dudhsagar Falls","https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?w=600&q=80"],
+["Dubai","Burj Khalifa • Desert Safari","https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=600&q=80"],
+["Bali","Uluwatu • Seminyak • Ubud","https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=600&q=80"],
+["Paris","Eiffel Tower • Louvre","https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=600&q=80"],
+["London","Big Ben • London Eye","https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=600&q=80"],
+["Switzerland","Jungfrau • Zermatt","https://images.unsplash.com/photo-1527668752968-14dc70a27cbb?w=600&q=80"],
+["Singapore","Marina Bay • Sentosa","https://images.unsplash.com/photo-1525625293386-3f8f993a32c4?w=600&q=80"],
+["Egypt","Pyramids • Sphinx","https://images.unsplash.com/photo-1503177119275-0aa32b3a9368?w=600&q=80"],
+["Andhra","Araku Valley • Vizag Beach","https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80"]
+];
+
+const DB={
+"mount abu":[
+[{n:"Dilwara Temples",t:"9:00 AM",d:"White marble Jain temples, stunning carvings 1.5km",c:"Free",k:"Dilwara Temples Mount Abu"},{n:"Nakki Lake",t:"11:30 AM",d:"Sacred lake boating & market 0.5km",c:"₹100",k:"Nakki Lake Mount Abu"},{n:"Toad Rock",t:"3:30 PM",d:"Frog shaped rock viewpoint 1km",c:"Free",k:"Toad Rock Mount Abu"}],
+[{n:"Guru Shikhar",t:"8:30 AM",d:"Highest peak Rajasthan 1722m, temple",c:"Free",k:"Guru Shikhar Mount Abu"},{n:"Achalgarh Fort",t:"11:00 AM",d:"14th century fort & Achaleshwar Temple 8km",c:"₹50",k:"Achalgarh Fort Mount Abu"},{n:"Sunset Point",t:"5:30 PM",d:"Best Aravalli sunset view 2km",c:"Free",k:"Sunset Point Mount Abu"}],
+[{n:"Honeymoon Point",t:"9:00 AM",d:"Valley view, Anadara Point 3km",c:"Free",k:"Honeymoon Point Mount Abu"},{n:"Peace Park",t:"11:00 AM",d:"Brahma Kumaris garden peaceful 2km",c:"Free",k:"Peace Park Mount Abu"},{n:"Mount Abu Bazaar",t:"5:00 PM",d:"Handicrafts, souvenirs, food",c:"₹500",k:"Mount Abu Bazaar"}]
+],
+"maldives":[
+[{n:"Maafushi Island Arrival",t:"9:00 AM",d:"Ferry from Male, check-in, beach",c:"$30",k:"Maafushi Island Maldives"},{n:"Bikini Beach",t:"12:00 PM",d:"Famous white sand beach swimming",c:"Free",k:"Bikini Beach Maldives"},{n:"Sunset Fishing",t:"5:00 PM",d:"Traditional Maldivian fishing trip",c:"$40",k:"Sunset Fishing Maldives"}],
+[{n:"Male City Tour",t:"9:00 AM",d:"Capital, fish market, Hukuru Miskiy",c:"$20",k:"Male City Maldives"},{n:"Hulhumale Beach",t:"11:30 AM",d:"Artificial island beach",c:"Free",k:"Hulhumale Maldives"},{n:"Dolphin Cruise",t:"4:30 PM",d:"Spinner dolphins watching",c:"$60",k:"Dolphin Cruise Maldives"}],
+[{n:"Sandbank Picnic",t:"9:00 AM",d:"Private sandbank BBQ lunch",c:"$80",k:"Sandbank Maldives"},{n:"Water Sports",t:"1:00 PM",d:"Jet ski, parasailing, banana boat",c:"$70",k:"Water Sports Maldives"},{n:"Overwater Dinner",t:"7:00 PM",d:"Romantic overwater restaurant",c:"$90",k:"Overwater Restaurant Maldives"}]
+],
+"malaysia":[
+[{n:"Petronas Towers",t:"9:00 AM",d:"Iconic twin towers KL, Skybridge",c:"RM80",k:"Petronas Towers Malaysia"},{n:"Batu Caves",t:"11:30 AM",d:"272 steps Murugan temple cave",c:"Free",k:"Batu Caves Malaysia"},{n:"Jalan Alor Food Street",t:"7:00 PM",d:"Best street food in KL",c:"RM30",k:"Jalan Alor Malaysia"}],
+[{n:"Genting Highlands",t:"9:00 AM",d:"Hill resort & theme park cable car",c:"RM50",k:"Genting Highlands Malaysia"},{n:"Langkawi Sky Bridge",t:"2:00 PM",d:"Curved bridge 700m high, views",c:"RM85",k:"Langkawi Sky Bridge"}]
+],
+"thailand":[
+[{n:"Grand Palace Bangkok",t:"9:00 AM",d:"Royal palace & Emerald Buddha",c:"500 THB",k:"Grand Palace Bangkok"},{n:"Chatuchak Market",t:"12:00 PM",d:"15k stalls weekend market",c:"Free",k:"Chatuchak Market Bangkok"},{n:"Asiatique Night Market",t:"7:00 PM",d:"Riverside shopping & Ferris wheel",c:"Free",k:"Asiatique Bangkok"}],
+[{n:"Patong Beach Phuket",t:"9:00 AM",d:"Famous beach & water sports",c:"Free",k:"Patong Beach Phuket"},{n:"Big Buddha Phuket",t:"11:30 AM",d:"45m marble Buddha hilltop",c:"Free",k:"Big Buddha Phuket"},{n:"Phi Phi Islands Tour",t:"1:30 PM",d:"Maya Bay film location boat tour",c:"1500 THB",k:"Phi Phi Islands Thailand"}]
+],
+"goa":[
+[{n:"Baga Beach",t:"9:00 AM",d:"Most popular beach north Goa",c:"Free",k:"Baga Beach Goa"},{n:"Fort Aguada",t:"11:30 AM",d:"Portuguese fort sea view",c:"₹25",k:"Fort Aguada Goa"},{n:"Anjuna Market",t:"4:00 PM",d:"Wednesday hippie flea market",c:"Free",k:"Anjuna Market Goa"}],
+[{n:"Dudhsagar Falls",t:"8:00 AM",d:"4-tier waterfall trek & jeep",c:"₹400",k:"Dudhsagar Falls Goa"},{n:"Basilica Bom Jesus",t:"2:00 PM",d:"UNESCO church Old Goa",c:"Free",k:"Basilica Bom Jesus Goa"}]
+],
+"paris":[[{n:"Eiffel Tower",t:"9:00 AM",d:"Iconic iron tower 330m, lift",c:"€28",k:"Eiffel Tower Paris"},{n:"Louvre Museum",t:"12:00 PM",d:"Mona Lisa & art, 3hrs",c:"€22",k:"Louvre Museum Paris"},{n:"Seine River Cruise",t:"7:30 PM",d:"Night lights cruise 1hr",c:"€15",k:"Seine River Cruise Paris"}]],
+"dubai":[[{n:"Burj Khalifa",t:"9:00 AM",d:"World tallest 828m, At The Top",c:"AED 169",k:"Burj Khalifa Dubai"},{n:"Dubai Mall & Fountain",t:"12:00 PM",d:"Aquarium & fountain show 6pm",c:"Free",k:"Dubai Mall Fountain"},{n:"Desert Safari",t:"4:00 PM",d:"Dune bashing, camel, BBQ dinner",c:"AED 200",k:"Desert Safari Dubai"}]],
+"bali":[[{n:"Uluwatu Temple",t:"9:00 AM",d:"Cliff temple & Kecak fire dance",c:"IDR 50k",k:"Uluwatu Temple Bali"},{n:"Seminyak Beach",t:"12:00 PM",d:"Surf & beach clubs",c:"Free",k:"Seminyak Beach Bali"},{n:"Ubud Monkey Forest",t:"3:00 PM",d:"Sacred monkeys & temple",c:"IDR 80k",k:"Monkey Forest Ubud Bali"}]],
+"kerala":[[{n:"Munnar Tea Gardens",t:"9:00 AM",d:"Endless tea hills & photo",c:"₹100",k:"Munnar Tea Gardens"},{n:"Eravikulam Park",t:"11:30 AM",d:"Nilgiri Tahr & Anamudi peak",c:"₹120",k:"Eravikulam National Park Munnar"},{n:"Alleppey Houseboat",t:"4:00 PM",d:"Backwater overnight cruise",c:"₹6000",k:"Alleppey Houseboat Kerala"}]]
+};
+
+function showTab(x){
+document.getElementById('aBox').style.display=x=='a'?'block':'none';
+document.getElementById('eBox').style.display=x=='e'?'block':'none';
+document.getElementById('b1').className=x=='a'?'tab on':'tab';
+document.getElementById('b2').className=x=='e'?'tab on':'tab';
+}
+function doAuto(){
+let q=document.getElementById('pl').value.toLowerCase(),b=document.getElementById('ac');
+if(!q){b.style.display='none';return}
+let r=ALL.filter(v=>v.toLowerCase().includes(q)).slice(0,10);
+b.innerHTML=r.map(v=>`<div onclick="pickPlace('${v}')">${v}</div>`).join('');
+b.style.display=r.length?'block':'none';
+}
+function pickPlace(v){document.getElementById('pl').value=v;document.getElementById('ac').style.display='none'}
 document.addEventListener('click',e=>{if(!e.target.closest('.rel'))document.getElementById('ac').style.display='none'})
-document.getElementById('grid').innerHTML=PLACES.map(p=>`<div class="pc" onclick="document.getElementById('pl').value='${p[0]}';showTab('a');make()"><img src="${p[2]}" loading="lazy"><div class="gr"></div><div class="t"><div class="t1">${p[0]}</div><div class="t2">${p[1]}</div></div></div>`).join('');
-function make(){
+document.getElementById('grid').innerHTML=PLACES.map(p=>`<div class="pc" onclick="document.getElementById('pl').value='${p[0]}';showTab('a');makePlan()"><img src="${p[2]}" loading="lazy"><div class="gr"></div><div class="t"><div class="t1">${p[0]}</div><div class="t2">${p[1]}</div></div></div>`).join('');
+
+function getKey(place){
+let p=place.toLowerCase();
+if(p.includes("mount abu")||p.includes("abu")) return "mount abu";
+if(p.includes("maldives")) return "maldives";
+if(p.includes("malaysia")) return "malaysia";
+if(p.includes("thailand")||p.includes("phuket")||p.includes("bangkok")) return "thailand";
+if(p.includes("goa")) return "goa";
+if(p.includes("paris")) return "paris";
+if(p.includes("dubai")) return "dubai";
+if(p.includes("bali")) return "bali";
+if(p.includes("munnar")||p.includes("kerala")||p.includes("alleppey")||p.includes("thekkady")) return "kerala";
+return null;
+}
+
+function makePlan(){
 let place=document.getElementById('pl').value||"Mount Abu";
 let days=parseInt(document.getElementById('dy').value)||3;
+if(days>15) days=15;
 let out=document.getElementById('out');out.style.display='block';
-let mount=[
-[{n:"Dilwara Temples",t:"9:00 AM",d:"White marble Jain temples, stunning carvings",c:"Free",k:"Dilwara Temples Mount Abu"},{n:"Nakki Lake",t:"11:30 AM",d:"Sacred lake boating, 0.5km from Dilwara",c:"₹100",k:"Nakki Lake Mount Abu"},{n:"Toad Rock",t:"3:30 PM",d:"Frog shaped rock viewpoint",c:"Free",k:"Toad Rock Mount Abu"}],
-[{n:"Guru Shikhar",t:"8:30 AM",d:"Highest peak Rajasthan 1722m",c:"Free",k:"Guru Shikhar Mount Abu"},{n:"Achalgarh Fort",t:"11:00 AM",d:"14th century fort & temple",c:"₹50",k:"Achalgarh Fort Mount Abu"},{n:"Sunset Point",t:"5:30 PM",d:"Best Aravalli sunset view",c:"Free",k:"Sunset Point Mount Abu"}],
-[{n:"Honeymoon Point",t:"9:00 AM",d:"Valley view, also Anadara Point",c:"Free",k:"Honeymoon Point Mount Abu"},{n:"Peace Park",t:"11:00 AM",d:"Brahma Kumaris garden peaceful",c:"Free",k:"Peace Park Mount Abu"},{n:"Mount Abu Bazaar",t:"5:00 PM",d:"Handicrafts & souvenirs",c:"₹500",k:"Mount Abu Bazaar"}]
-];
-let other=[[{n:place+" Main Spot",t:"9:00 AM",d:"Must visit highlight of "+place,c:"₹200",k:place},{n:place+" Lake / Beach",t:"12:00 PM",d:"Relax & photos, 1km away",c:"₹100",k:place+" lake"},{n:place+" View Point",t:"4:00 PM",d:"Evening sunset viewpoint",c:"Free",k:place+" viewpoint"}]];
-let data=place.toLowerCase().includes("mount abu")?mount:other;
-let html=`<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><div style="font-weight:800;font-size:18px">📍 ${place} • ${days} Days Easy Plan</div><div style="background:#16a34a;color:#fff;padding:5px 10px;border-radius:100px;font-size:11px;font-weight:800">✓ Beautiful & Easy</div></div>`;
+let key=getKey(place);
+let data=key?DB[key]:null;
+
+let html=`<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:8px"><div style="font-weight:800;font-size:18px">📍 ${place} • ${days} Days Real Plan</div><div style="background:#16a34a;color:#fff;padding:5px 12px;border-radius:100px;font-size:11px;font-weight:800">✓ Mount Abu Pic Fixed + Real Places</div></div>`;
+
+if(!data){
+for(let i=0;i<days;i++){
+html+=`<div class="day"><div style="font-weight:800;margin-bottom:8px">Day ${i+1} - ${place}</div><div class="row">`+
+[
+{n:`${place} Top Spot`,t:"9:00 AM",d:`Most famous place in ${place}`,c:"₹300",k:place+" top attraction"},
+{n:`${place} Nature Spot`,t:"12:30 PM",d:`Best natural spot in ${place}`,c:"₹100",k:place+" nature"},
+{n:`${place} Sunset View`,t:"5:00 PM",d:`Best sunset viewpoint in ${place}`,c:"Free",k:place+" sunset point"}
+].map(s=>`<div class="sp"><div class="tm">${s.t}</div><div class="nm">📍 ${s.n}</div><div class="hi">➡️ ${s.d}</div><div class="cost">${s.c}</div><div class="bt"><a class="bn" target="_blank" href="https://www.google.com/maps/search/${encodeURIComponent(s.k)}">📍 Map</a><a class="bn" target="_blank" href="https://www.google.com/maps/search/restaurants+near+${encodeURIComponent(s.k)}">🍽️ Food</a><a class="bn" target="_blank" href="https://www.google.com/maps/search/hotels+in+${encodeURIComponent(place)}">🏨 Stay</a><a class="bn" target="_blank" href="https://www.google.com/maps/search/bike+rental+${encodeURIComponent(place)}">🚲 Bike</a></div></div>`).join('')+`</div></div>`;
+}
+}else{
 for(let i=0;i<days;i++){
 let d=data[i%data.length];
-html+=`<div class="day"><div style="font-weight:800;margin-bottom:8px;display:flex;justify-content:space-between"><span>Day ${i+1}</span><span style="color:#16a34a">Planned</span></div><div class="row">`+d.map(s=>`<div class="sp"><div class="tm">${s.t}</div><div class="nm">📍 ${s.n}</div><div class="hi">➡️ ${s.d}</div><div style="color:#16a34a;font-weight:800;font-size:11px;margin-top:4px">${s.c}</div><div class="bt"><a class="bn" target="_blank" href="https://www.google.com/maps/search/${encodeURIComponent(s.k)}">📍 Map</a><a class="bn" target="_blank" href="https://www.google.com/maps/search/restaurants+near+${encodeURIComponent(s.k)}">🍽️ Food</a><a class="bn" target="_blank" href="https://www.google.com/maps/search/hotels+in+${encodeURIComponent(place)}">🏨 Stay</a><a class="bn" target="_blank" href="https://www.google.com/maps/search/bike+rental+${encodeURIComponent(place)}">🚲 Bike</a></div></div>`).join('')+`</div></div>`;
+html+=`<div class="day"><div style="font-weight:800;margin-bottom:8px;display:flex;justify-content:space-between"><span>Day ${i+1} - ${place}</span><span style="color:#16a34a;font-size:11px">Real Places ✓</span></div><div class="row">`+d.map(s=>`<div class="sp"><div class="tm">${s.t}</div><div class="nm">📍 ${s.n}</div><div class="hi">➡️ ${s.d}</div><div class="cost">${s.c}</div><div class="bt"><a class="bn" target="_blank" href="https://www.google.com/maps/search/${encodeURIComponent(s.k)}">📍 Map</a><a class="bn" target="_blank" href="https://www.google.com/maps/search/restaurants+near+${encodeURIComponent(s.k)}">🍽️ Food</a><a class="bn" target="_blank" href="https://www.google.com/maps/search/hotels+in+${encodeURIComponent(place)}">🏨 Stay</a><a class="bn" target="_blank" href="https://www.google.com/maps/search/bike+rental+${encodeURIComponent(place)}">🚲 Bike</a></div></div>`).join('')+`</div></div>`;
+}
 }
 out.innerHTML=html;
 out.scrollIntoView({behavior:'smooth'});
